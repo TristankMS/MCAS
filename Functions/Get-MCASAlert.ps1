@@ -129,7 +129,12 @@ function Get-MCASAlert {
 
         # Limits the results to unread items.
         [Parameter(ParameterSetName='List', Mandatory=$false)]
-        [switch]$Unread
+        [switch]$Unread,
+
+        # Limits the results to Open items.
+        [Parameter(ParameterSetName='List', Mandatory=$false)]
+        [switch]$Open
+        
     )
     begin {
     }
@@ -208,6 +213,7 @@ function Get-MCASAlert {
             if ($Source)     {$filterSet += @{'source'=         @{'eq'=$Source}}}
             if ($Read)       {$filterSet += @{'read'=           @{'eq'=$true}}}
             if ($Unread)     {$filterSet += @{'read'=           @{'eq'=$false}}}
+            if ($Open)       {$filterSet += @{'resolutionStatus'=@{'eq'=0}}}
 
             #endregion ----------------------------FILTERING----------------------------
 
